@@ -1,12 +1,12 @@
-🎬 CineClub – API de Alquiler de Películas
+Movie Rental – API de Alquiler de Películas
 
-📌 Descripción
+Descripción
 
 CineClub es un proyecto de gestión y alquiler de películas desarrollado utilizando Python y FastAPI.
 
 El objetivo del proyecto es crear una API REST que permita gestionar la información relacionada con películas mediante diferentes operaciones. La aplicación utiliza una base de datos SQLite para almacenar la información y está organizada mediante una estructura modular que separa las rutas, los modelos, los esquemas y la configuración de la base de datos.
 
-🚀 Tecnologías utilizadas
+Tecnologías utilizadas
 
 Python: Lenguaje de programación principal.
 
@@ -20,25 +20,19 @@ Pydantic: Validación y estructuración de datos.
 
 Uvicorn: Servidor ASGI para ejecutar la aplicación.
 
-📂 Estructura del proyecto
+Estructura del proyecto
 
 movie-rental/
 │
+├── .venv/
+├── __pycache__/
 ├── database/
-│   └── Configuración de la base de datos
-│
 ├── models/
-│   └── Modelos de datos
-│
 ├── routes/
-│   └── Rutas y endpoints de la API
-│
 ├── schemas/
-│   └── Esquemas de validación de datos
-│
+├── cineclub.db
 ├── main.py
 ├── requirements.txt
-├── cineclub.db
 └── README.md
 
 Organización de los archivos
@@ -57,7 +51,7 @@ requirements.txt: Contiene las dependencias necesarias para ejecutar el proyecto
 
 cineclub.db: Base de datos SQLite del proyecto.
 
-⚙️ Instalación y configuración
+Instalación y configuración
 
 Para ejecutar el proyecto localmente, sigue estos pasos:
 
@@ -87,7 +81,7 @@ source .venv/bin/activate
 
 pip install -r requirements.txt
 
-▶️ Ejecución del proyecto
+Ejecución del proyecto
 
 Para iniciar el servidor de desarrollo, ejecuta el siguiente comando:
 
@@ -97,7 +91,7 @@ Una vez iniciado, la API estará disponible en:
 
 http://127.0.0.1:8000
 
-📖 Documentación de la API
+Documentación de la API
 
 FastAPI genera automáticamente una documentación interactiva que permite consultar y probar los diferentes endpoints de la aplicación.
 
@@ -109,10 +103,10 @@ También puedes consultar la documentación alternativa en:
 
 http://127.0.0.1:8000/redoc
 
-🎯 Objetivo del proyecto
+Objetivo del proyecto
 
 Este proyecto tiene como finalidad poner en práctica los conocimientos adquiridos sobre desarrollo backend, creación de APIs REST, gestión de bases de datos y organización del código mediante una arquitectura modular.
 
-CineClub 🎥
+Movie Rental
 
 Proyecto de desarrollo web y backend con Python y FastAPI.
