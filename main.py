@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from database.database import Base, engine
-from routes.routes import router
+from routes import router
 
 
 # Crear las tablas que todavía no existen
