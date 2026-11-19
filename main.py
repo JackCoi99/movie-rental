@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from database.database import Base, engine
+from models import actor, director, genre, movie, rental, user
 from routes import router
 
 
