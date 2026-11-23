@@ -4,30 +4,46 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="api-base-url" content="http://127.0.0.1:8000">
-  <title>Cineclub · Movie Rental API</title>
+  <title>Movie Rental</title>
   <link rel="stylesheet" href="styles.css">
   <script defer src="https://cdn.jsdelivr.net/npm/axios@1/dist/axios.min.js"></script>
   <script defer src="app.js"></script>
 </head>
 <body>
   <a href="#catalogo" class="skip">Saltar al catálogo</a>
+
   <header class="header">
     <div class="shell nav">
-      <a class="brand" href="#inicio">Cineclub<span>.</span></a>
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">▶</span>Movie Rental
+      </a>
       <nav aria-label="Navegación principal">
         <a href="#catalogo">Catálogo</a>
         <a href="#documentacion">Documentación</a>
+        <button class="secondary cart-toggle" id="open-cart" type="button">
+          Carrito <span id="cart-count">0</span>
+        </button>
       </nav>
     </div>
   </header>
+
   <main id="inicio">
     <section class="intro" aria-labelledby="intro-title">
       <div class="shell intro-content">
         <div>
-          <h1 id="intro-title">Archivo de cine</h1>
-          <p>Explora y gestiona el catálogo de Movie Rental API. Cada película conecta con su dirección, reparto y géneros.</p>
+          <h1 id="intro-title">Alquiler de películas</h1>
+          <p>Explora el catálogo, consulta el reparto y alquila las películas disponibles.</p>
         </div>
-        <a class="button secondary" data-api-docs href="http://127.0.0.1:8000/docs">Abrir Swagger ↗</a>
+        <a class="button secondary" data-api-docs href="http://127.0.0.1:8000/docs">
+          Abrir Swagger ↗
+        </a>
+      </div>
+    </section>
+
+    <section class="shell premieres" aria-labelledby="premieres-title">
+      <h2 id="premieres-title">Últimos estrenos</h2>
+      <div id="premieres" class="premiere-grid" aria-live="polite">
+        <p>Cargando estrenos…</p>
       </div>
     </section>
 
@@ -36,14 +52,16 @@
         <h2 id="catalog-title" tabindex="-1">Catálogo de películas</h2>
         <button id="new-movie" type="button">Nueva película</button>
       </div>
-      <p id="status" class="notice" role="status" aria-live="polite"></p>
+
+      <p id="status" class="notice" role="status"></p>
       <p id="error" class="notice error" role="alert"></p>
 
       <div id="catalog-view">
         <div class="toolbar">
           <div>
-            <label for="director-filter">Dirección</label>
-            <select id="director-filter"><option value="">Todos los directores</option></select>
+            <label for="movie-search">Buscar películas</label>
+            <input id="movie-search" type="search" aria-describedby="movie-search-help" aria-controls="movie-list">
+            <small id="movie-search-help">Busca por título, año, dirección, reparto, género o sinopsis.</small>
           </div>
           <button id="reload" class="secondary" type="button">Actualizar catálogo</button>
         </div>
@@ -51,48 +69,25 @@
         <div id="movie-list" class="movie-grid" aria-busy="false"></div>
       </div>
 
-      <section id="detail-view" class="panel" aria-labelledby="detail-title" hidden>
-        <button type="button" class="secondary" data-back>Volver al catálogo</button>
-        <h3 id="detail-title" tabindex="-1"></h3>
-        <p id="detail-description"></p>
-        <dl id="detail-data"></dl>
-        <div class="actions">
-          <button type="button" id="edit-movie">Editar película</button>
-          <button type="button" class="danger" id="delete-movie">Eliminar película</button>
-        </div>
-      </section>
-
-      <section id="form-view" class="panel" aria-labelledby="form-title" hidden>
-        <h3 id="form-title" tabindex="-1"></h3>
-        <form id="movie-form">
-          <div class="fields">
-            <div><label for="name">Título (obligatorio)</label><input id="name" name="name" required></div>
-            <div><label for="year">Año (obligatorio)</label><input id="year" name="year" type="number" min="1" max="9999" required></div>
-            <div><label for="director">Dirección (obligatorio)</label><select id="director" name="director" required></select></div>
-            <div><label for="available">Disponibilidad</label><select id="available" name="available"><option value="true">Disponible</option><option value="false">No disponible</option></select></div>
-          </div>
-          <label for="description">Sinopsis</label>
-          <textarea id="description" name="description" rows="4"></textarea>
-          <div class="fields relations">
-            <fieldset><legend>Reparto</legend><div id="actors" class="choices"></div></fieldset>
-            <fieldset><legend>Géneros</legend><div id="genres" class="choices"></div></fieldset>
-          </div>
-          <div class="actions">
-            <button type="submit" id="save-movie">Guardar película</button>
-            <button type="button" class="secondary" id="cancel-form">Cancelar</button>
-          </div>
-        </form>
-      </section>
+      <section id="form-view" class="panel" aria-labelledby="form-title" hidden></section>
     </section>
 
     <section id="documentacion" class="docs" aria-labelledby="docs-title">
       <div class="shell">
-        <div class="section-head"><h2 id="docs-title">Documentación de la API</h2><a class="button secondary" data-api-docs href="http://127.0.0.1:8000/docs">Consultar Swagger ↗</a></div>
-        <p>Movie Rental API organiza un catálogo de cine y registra préstamos de películas a usuarios. El backend usa FastAPI y una base de datos relacional.</p>
+        <div class="section-head">
+          <h2 id="docs-title">Documentación de la API</h2>
+          <a class="button secondary" data-api-docs href="http://127.0.0.1:8000/docs">
+            Consultar Swagger ↗
+          </a>
+        </div>
+        <p>Movie Rental API organiza el catálogo y registra los alquileres. El backend usa FastAPI y una base de datos relacional.</p>
+
         <h3>Modelo de datos</h3>
         <div class="table-wrap">
           <table>
-            <thead><tr><th scope="col">Entidades</th><th scope="col">Relación</th><th scope="col">Clave o tabla de enlace</th></tr></thead>
+            <thead>
+              <tr><th scope="col">Entidades</th><th scope="col">Relación</th><th scope="col">Clave o tabla de enlace</th></tr>
+            </thead>
             <tbody>
               <tr><td>Director → Película</td><td>Uno a muchos</td><td><code>movies.director_id</code></td></tr>
               <tr><td>Película ↔ Actor</td><td>Muchos a muchos</td><td><code>movie_actor</code></td></tr>
@@ -102,11 +97,18 @@
             </tbody>
           </table>
         </div>
+
         <h3>Endpoints</h3>
-        <p><code>GET /</code> devuelve el estado de la API. Las operaciones siguientes se aplican a <code>/movies</code>, <code>/directors</code>, <code>/actors</code>, <code>/genres</code>, <code>/users</code> y <code>/rentals</code>.</p>
+        <p>
+          <code>GET /</code> devuelve el estado de la API. Las operaciones de la tabla se aplican a
+          <code>/movies</code>, <code>/directors</code>, <code>/actors</code>,
+          <code>/genres</code>, <code>/users</code> y <code>/rentals</code>.
+        </p>
         <div class="table-wrap">
           <table>
-            <thead><tr><th scope="col">Petición</th><th scope="col">Entrada</th><th scope="col">Salida</th></tr></thead>
+            <thead>
+              <tr><th scope="col">Petición</th><th scope="col">Entrada</th><th scope="col">Salida</th></tr>
+            </thead>
             <tbody>
               <tr><td><code>GET /{recurso}</code></td><td>Sin parámetros</td><td><code>200</code> · lista JSON</td></tr>
               <tr><td><code>GET /{recurso}/{record_id}</code></td><td>ID entero positivo</td><td><code>200</code> · objeto JSON</td></tr>
@@ -116,25 +118,33 @@
             </tbody>
           </table>
         </div>
-        <p><code>404</code> indica que falta un registro o una referencia, <code>409</code> indica un conflicto de integridad y <code>422</code> indica datos inválidos.</p>
+        <p><code>404</code> indica un registro o referencia inexistente, <code>409</code> un conflicto de integridad y <code>422</code> datos inválidos.</p>
+
         <details>
           <summary>Campos de entrada y salida por entidad</summary>
-          <div class="table-wrap"><table>
-            <thead><tr><th scope="col">Recurso</th><th scope="col">Obligatorios</th><th scope="col">Opcionales</th><th scope="col">Salida</th></tr></thead>
-            <tbody>
-              <tr><td>Películas</td><td><code>name, year, director_id</code></td><td><code>description, available, actor_ids, genre_ids</code></td><td>ID, datos de película, director, actores y géneros anidados</td></tr>
-              <tr><td>Directores</td><td><code>name, surname</code></td><td><code>year, country, bio</code></td><td>ID y campos del director</td></tr>
-              <tr><td>Actores</td><td><code>name, surname</code></td><td><code>year, country</code></td><td>ID y campos del actor</td></tr>
-              <tr><td>Géneros</td><td><code>type</code></td><td>—</td><td>ID y tipo</td></tr>
-              <tr><td>Usuarios</td><td><code>name, email</code></td><td>—</td><td>ID, nombre y correo</td></tr>
-              <tr><td>Alquileres</td><td><code>user_id, movie_id, rental_date</code></td><td><code>return_date</code></td><td>ID, claves, fechas, usuario y película anidados</td></tr>
-            </tbody>
-          </table></div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th scope="col">Recurso</th><th scope="col">Obligatorios</th><th scope="col">Opcionales</th><th scope="col">Salida</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Películas</td><td><code>name, year, director_id</code></td><td><code>description, available, actor_ids, genre_ids</code></td><td>ID, datos de película, director, actores y géneros anidados</td></tr>
+                <tr><td>Directores</td><td><code>name, surname</code></td><td><code>year, country, bio</code></td><td>ID y campos del director</td></tr>
+                <tr><td>Actores</td><td><code>name, surname</code></td><td><code>year, country</code></td><td>ID y campos del actor</td></tr>
+                <tr><td>Géneros</td><td><code>type</code></td><td>—</td><td>ID y tipo</td></tr>
+                <tr><td>Usuarios</td><td><code>name, email</code></td><td>—</td><td>ID, nombre y correo</td></tr>
+                <tr><td>Alquileres</td><td><code>user_id, movie_id, rental_date</code></td><td><code>return_date</code></td><td>ID, claves, fechas, usuario y película anidados</td></tr>
+              </tbody>
+            </table>
+          </div>
         </details>
+
         <h3>Ejemplos JSON</h3>
         <p>Usa identificadores existentes. En <code>PUT</code>, incluye todas las asociaciones que quieras conservar. Las listas vacías eliminan sus vínculos.</p>
         <div class="fields examples">
-          <div><h4>POST /movies</h4><pre><code>{
+          <div>
+            <h4>POST /movies</h4>
+            <pre><code>{
   "name": "La última marea",
   "year": 2019,
   "director_id": 1,
@@ -142,8 +152,11 @@
   "genre_ids": [3],
   "description": null,
   "available": true
-}</code></pre></div>
-          <div><h4>PUT /movies/12</h4><pre><code>{
+}</code></pre>
+          </div>
+          <div>
+            <h4>PUT /movies/12</h4>
+            <pre><code>{
   "name": "La última marea",
   "year": 2019,
   "director_id": 1,
@@ -151,11 +164,30 @@
   "genre_ids": [3],
   "description": null,
   "available": false
-}</code></pre></div>
+}</code></pre>
+          </div>
+          <div>
+            <h4>POST /rentals</h4>
+            <pre><code>{
+  "user_id": 1,
+  "movie_id": 12,
+  "rental_date": "2026-11-19",
+  "return_date": null
+}</code></pre>
+          </div>
         </div>
       </div>
     </section>
   </main>
-  <footer class="shell footer">Cineclub · Movie Rental API</footer>
+
+  <footer class="shell footer">Movie Rental</footer>
+
+  <dialog id="cart-dialog" aria-labelledby="cart-title">
+    <div class="section-head">
+      <h2 id="cart-title">Carrito</h2>
+      <form method="dialog"><button class="secondary">Cerrar</button></form>
+    </div>
+    <ul id="cart-items"></ul>
+  </dialog>
 </body>
 </html>
