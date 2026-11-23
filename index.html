@@ -31,10 +31,10 @@
       </div>
     </section>
 
-    <section class="shell workspace" id="catalogo" aria-labelledby="catalog-title">
+    <section id="catalogo" class="shell workspace" aria-labelledby="catalog-title">
       <div class="section-head">
         <h2 id="catalog-title" tabindex="-1">Catálogo de películas</h2>
-        <button type="button" id="new-movie" disabled>Nueva película</button>
+        <button id="new-movie" type="button">Nueva película</button>
       </div>
       <p id="status" class="notice" role="status" aria-live="polite"></p>
       <p id="error" class="notice error" role="alert"></p>
@@ -45,8 +45,9 @@
             <label for="director-filter">Dirección</label>
             <select id="director-filter"><option value="">Todos los directores</option></select>
           </div>
-          <button type="button" class="secondary" id="reload">Actualizar catálogo</button>
+          <button id="reload" class="secondary" type="button">Actualizar catálogo</button>
         </div>
+        <p id="movie-search-results" role="status"></p>
         <div id="movie-list" class="movie-grid" aria-busy="false"></div>
       </div>
 
