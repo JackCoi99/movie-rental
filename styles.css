@@ -229,3 +229,65 @@ dialog::backdrop { background: #000a; }
 @media (min-width: 62rem) {
   .movie-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+
+.poster {
+  position: relative;
+  overflow: hidden;
+}
+
+.poster img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.confirm-dialog {
+  width: min(26rem, calc(100% - 2rem));
+  padding: clamp(1rem, 4vw, 1.5rem);
+  border-top: 3px solid var(--gold);
+  box-shadow: 0 1rem 3rem #0008;
+}
+
+.confirm-dialog::backdrop {
+  background: #000b;
+}
+
+.confirm-dialog h2 {
+  margin: 0;
+  color: var(--gold);
+  font: bold 1.45rem Georgia, serif;
+}
+
+.confirm-dialog p {
+  margin: 0.75rem 0 0;
+  overflow-wrap: anywhere;
+}
+
+.confirm-dialog .actions {
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+.poster.is-rented img {
+  filter: brightness(0.55);
+}
+
+.poster.is-rented::after {
+  content: "Alquilada";
+  position: absolute;
+  z-index: 1;
+  inset: 0.65rem 0.65rem auto auto;
+  padding: 0.35rem 0.65rem;
+  border-radius: 0.35rem;
+  background: #661f2a;
+  color: #fff;
+  font: 700 0.85rem/1.2 system-ui, sans-serif;
+}
+
+.card.is-rented {
+  border-inline-start: 4px solid #d57a86;
+}

@@ -7,31 +7,25 @@
   <title>Ficha de película · Movie Rental</title>
   <link rel="stylesheet" href="styles.css">
   <script defer src="https://cdn.jsdelivr.net/npm/axios@1/dist/axios.min.js"></script>
+  <script defer src="image/posters.js"></script>
   <script defer src="app.js"></script>
 </head>
 <body>
   <a href="#ficha" class="skip">Saltar a la ficha</a>
-
   <header class="header">
     <div class="shell nav">
-      <a class="brand" href="index.html">
-        <span class="brand-mark" aria-hidden="true">▶</span>Movie Rental
-      </a>
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">▶</span>Movie Rental</a>
       <nav aria-label="Navegación principal">
         <a href="index.html#catalogo">Catálogo</a>
         <a href="index.html#documentacion">Documentación</a>
-        <button class="secondary cart-toggle" id="open-cart" type="button">
-          Carrito <span id="cart-count">0</span>
-        </button>
+        <button class="secondary cart-toggle" id="open-cart" type="button">Alquilados <span id="cart-count">0</span></button>
       </nav>
     </div>
   </header>
-
-  <main id="ficha" class="shell workspace" tabindex="-1">
+  <main class="shell workspace" id="ficha" tabindex="-1">
     <h1 class="page-title">Ficha de película</h1>
     <p id="status" class="notice" role="status"></p>
     <p id="error" class="notice error" role="alert"></p>
-
     <section id="detail-view" class="panel" aria-labelledby="detail-title" hidden>
       <a class="button secondary" href="index.html#catalogo">Volver al catálogo</a>
       <div class="detail-layout">
@@ -40,16 +34,12 @@
           <h2 id="detail-title" tabindex="-1"></h2>
           <p id="detail-description"></p>
           <dl id="detail-data"></dl>
-
           <div class="actions">
-            <button id="pay-movie" type="button" aria-controls="rental-form" aria-expanded="false">
-              Pagar alquiler
-            </button>
-            <button id="cart-movie" class="secondary" type="button">Añadir al carrito</button>
-            <button id="edit-movie" class="secondary" type="button">Editar película</button>
-            <button id="delete-movie" class="danger" type="button">Eliminar película</button>
+            <button type="button" id="pay-movie" aria-controls="rental-form" aria-expanded="false">Pagar alquiler</button>
+            <button type="button" class="secondary" id="cart-movie">Añadir a Alquilados</button>
+            <button type="button" class="secondary" id="edit-movie">Editar película</button>
+            <button type="button" class="danger" id="delete-movie">Eliminar película</button>
           </div>
-
           <form id="rental-form" aria-labelledby="rental-title" hidden>
             <h3 id="rental-title">Pago de prueba</h3>
             <p>Este formulario registra el alquiler. No realiza ningún cargo.</p>
@@ -68,14 +58,9 @@
 
     <section id="form-view" class="panel" aria-labelledby="form-title" hidden></section>
   </main>
-
   <footer class="shell footer">Movie Rental</footer>
-
   <dialog id="cart-dialog" aria-labelledby="cart-title">
-    <div class="section-head">
-      <h2 id="cart-title">Carrito</h2>
-      <form method="dialog"><button class="secondary">Cerrar</button></form>
-    </div>
+    <div class="section-head"><h2 id="cart-title">Alquilados</h2><form method="dialog"><button class="secondary">Cerrar</button></form></div>
     <ul id="cart-items"></ul>
   </dialog>
 </body>
